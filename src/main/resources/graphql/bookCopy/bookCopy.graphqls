@@ -1,0 +1,18 @@
+type BookCopy{
+    bookCopyId:ID
+    status:Status!
+    "shelf number and section number"
+    location:String!
+    book:Book!
+}
+input BookCopyInput{
+    status:Status
+    "shelf number and section number"
+    location:String
+    bookId:ID
+}
+input SaveBookCopyInput{
+    "shelf number and section number"
+    location:String!
+    bookId:ID!
+}

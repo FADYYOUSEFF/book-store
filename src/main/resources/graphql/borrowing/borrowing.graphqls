@@ -1,0 +1,19 @@
+input BorrowBookInput {
+    userEmail:String!
+    bookCopyId:ID!
+}
+type BorrowBookResponse{
+    borrowingId: ID!
+    userEmail: String!
+    bookCopy: BookCopy!
+    borrowingStatus: BorrowingStatus!
+}
+input ReturnBookInput{
+    borrowingId: ID!
+}
+type ReturnBookResponse{
+    borrowingId: ID!
+    userEmail: String!
+    bookCopy: BookCopy!
+    borrowingStatus: BorrowingStatus!
+}

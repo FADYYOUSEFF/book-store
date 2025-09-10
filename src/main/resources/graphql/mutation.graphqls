@@ -1,0 +1,8 @@
+type Mutation{
+    deleteBookById(id:ID!):Boolean
+    saveBook(input:SaveBookInput):Book
+    deleteBookCopyById(id:ID!):Boolean
+    saveBookCopy(input:SaveBookCopyInput):BookCopy
+    borrowBookCopy(input:BorrowBookInput):BorrowBookResponse
+    returnBookCopy(input:ReturnBookInput):ReturnBookResponse
+}

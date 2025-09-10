@@ -1,0 +1,8 @@
+type Query {
+    getAuthorByID(id:ID):Author
+    getBookById(id:ID):Book
+    getBookCopyById(id:ID):BookCopy
+    authorFilter(input:AuthorInput):[Author]
+    bookFilter(input:BookInput):[Book]
+    bookCopyFilter(input:BookCopyInput):[BookCopy]
+}

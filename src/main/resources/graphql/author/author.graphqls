@@ -1,0 +1,21 @@
+type Author{
+    authorId:ID!
+    name:String!
+    nationality:String!
+    books:[Book]
+}
+input AuthorInput{
+    authorId:ID
+    name:String
+    nationality:String
+}
+
+input SaveAuthorInput{
+    """
+    In case the id is null, the system will insert a new author.
+    In case the id is valid, the system will reference the existed author.
+    """
+    authorId:ID
+    name:String!
+    nationality:String!
+}

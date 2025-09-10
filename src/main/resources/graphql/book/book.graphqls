@@ -1,0 +1,21 @@
+type Book{
+    bookId:ID!
+    title:String!
+    "language book written"
+    language:String!
+    edition:String!
+    authors:[Author]
+}
+
+input BookInput{
+    bookId:ID
+    title:String
+    language:String
+    edition:String
+}
+input SaveBookInput{
+    title:String!
+    language:String!
+    edition:String!
+    authors:[SaveAuthorInput!]!
+}
