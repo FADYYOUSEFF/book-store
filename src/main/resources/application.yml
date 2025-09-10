@@ -1,0 +1,29 @@
+spring:
+  application:
+    name: book-store
+  graphql:
+    graphiql:
+      enabled: true
+  datasource:
+    url: ${DATA_SOURCE_URL}
+    username: ${DATA_SOURCE_USERNAME}
+    password: ${DATA_SOURCE_PASSWORD}
+  jpa:
+    show-sql: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      format_sql: true
+      hibernate:
+        dialect: org.hibernate.dialect.PostgreSQLDialect
+
+server:
+  error:
+    include-message: always
+  port: ${SERVER_PORT}
+
+jwt:
+  secret: ${JWT_SECRET}
+
+
+
