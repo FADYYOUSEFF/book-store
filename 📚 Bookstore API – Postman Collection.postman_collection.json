@@ -1,0 +1,339 @@
+{
+	"info": {
+		"_postman_id": "1045ed5f-ca7c-46bc-8972-ebdebb4b1a5e",
+		"name": "📚 Bookstore API – Postman Collection",
+		"description": "This collection demonstrates a **Spring Boot Bookstore application** that integrates **Spring Security, REST, and GraphQL**.\n\nIt is designed to showcase **authentication, authorization, and book management workflows.**\n\n---\n\n### 🔑 Features\n\n1. **Authentication & Registration (REST Endpoints)**\n    \n    - Users can **register** and **log in**.\n        \n    - Authentication is required before accessing protected GraphQL features.\n        \n2. **GraphQL Endpoints (Protected)**\n    \n    Accessible only after login with a valid JWT token:\n    \n    - **Book Management**\n        \n        - Add a new book (requires `STAFF` role).\n            \n        - Add book copies (requires `STAFF` role).\n            \n    - **Borrow & Return**\n        \n        - Borrow a book copy (requires `STAFF` role).\n            \n        - Return a borrowed copy (requires `STAFF` role).\n            \n    - **Filtering & Queries**\n        \n        - Filter books by user.\n            \n        - Filter books by author.\n            \n        - Filter available book copies.\n            \n        - Both `STAFF` and `MEMBER` users can query/filter.\n            \n\n---\n\n### 🛠️ Collection Structure\n\n- **REST → Authentication**\n    \n    - `POST /register` → Register a new user.\n        \n    - `POST /login` → Obtain authentication token.\n        \n- **GraphQL → Bookstore Features**\n    \n    Each major feature (e.g., add book, borrow, return, filters) is provided as a **separate GraphQL**",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "43660692"
+	},
+	"item": [
+		{
+			"name": "register",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8055/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8055",
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "login",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8055/auth/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8055",
+					"path": [
+						"auth",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "getAuthorById",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmYWR5QGdtYWlsLmNvbSIsImlhdCI6MTc1NzAzNzU1MywiZXhwIjoxNzU3MDQxMTUzfQ.eJFksbgaT90FfLucVPFgaC-NNvl9yvW0DxKp9Nsi3xY",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query{\r\n  getAuthorByID(id: \"a491579b-3a91-4066-adc6-7c1f338b1ab8\") {\r\n    books {\r\n      title\r\n      edition\r\n    }\r\n  }\r\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8055/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8055",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "BooksFilter",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqaG9uMUBnbWFpbC5jb20iLCJpYXQiOjE3NTc1MDg2NzEsImV4cCI6MTc1NzUxMjI3MX0.Zs_2fFBgCDLEL-y6FKiy3oswyC9dGbApBlqMvotcvRg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query {\r\n  bookFilter(input:{bookId:\"sdf\"}){\r\n    bookId\r\n    title\r\n    authors{\r\n        authorId\r\n        name\r\n    }\r\n  }\r\n}\r\n",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8055/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8055",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "AuthorsFilter",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmYWR5QGdtYWlsLmNvbSIsImlhdCI6MTc1NzA4MzE1MSwiZXhwIjoxNzU3MDg2NzUxfQ.sig4-Dc7of9pd1fb_7RNDLLaTROGu8NrDSnAoA535yk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query{\r\n authorFilter(input:{}){\r\n    name\r\n    books{\r\n        title\r\n    }\r\n }\r\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8055/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8055",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "bookCopyFilter",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmYWR5QGdtYWlsLmNvbSIsImlhdCI6MTc1NzA5MTE4MCwiZXhwIjoxNzU3MDk0NzgwfQ.Tuh7qgy9h8z4oeoBhkjl8va7GJ0jQKypKmKqvlRjBpU",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "query{\r\n  bookCopyFilter(input:{}){\r\n    location\r\n    status\r\n    book{\r\n        bookId\r\n        edition\r\n        language\r\n        title\r\n        authors{\r\n            authorId\r\n            name\r\n            nationality\r\n        }\r\n    }\r\n  }\r\n# getBookCopyById(id:\"89706d07-7bc7-4a6d-bf70-26a688cf9645\"){\r\n#     bookCopyId\r\n#     location\r\n#     status\r\n#     book{\r\n#         bookId\r\n#         title\r\n#         edition\r\n#         language\r\n#     }\r\n# }\r\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8055/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8055",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "saveBook",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmYWR5QGdtYWlsLmNvbSIsImlhdCI6MTc1NzA4MzE1MSwiZXhwIjoxNzU3MDg2NzUxfQ.sig4-Dc7of9pd1fb_7RNDLLaTROGu8NrDSnAoA535yk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation{\r\n  saveBook\r\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8055/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8055",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "deleteBook",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmYWR5QGdtYWlsLmNvbSIsImlhdCI6MTc1NzA4MzE1MSwiZXhwIjoxNzU3MDg2NzUxfQ.sig4-Dc7of9pd1fb_7RNDLLaTROGu8NrDSnAoA535yk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation{\r\n  saveBook\r\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8055/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8055",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "borrowBook",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmYWR5QGdtYWlsLmNvbSIsImlhdCI6MTc1NzA4MzE1MSwiZXhwIjoxNzU3MDg2NzUxfQ.sig4-Dc7of9pd1fb_7RNDLLaTROGu8NrDSnAoA535yk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation{\r\n  saveBook\r\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8055/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8055",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "returnBook",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJmYWR5QGdtYWlsLmNvbSIsImlhdCI6MTc1NzA4MzE1MSwiZXhwIjoxNzU3MDg2NzUxfQ.sig4-Dc7of9pd1fb_7RNDLLaTROGu8NrDSnAoA535yk",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "graphql",
+					"graphql": {
+						"query": "mutation{\r\n  saveBook\r\n}",
+						"variables": ""
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8055/graphql",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8055",
+					"path": [
+						"graphql"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
